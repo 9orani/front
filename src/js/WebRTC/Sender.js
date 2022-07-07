@@ -38,11 +38,71 @@ export class Sender extends LocalInputManager {
         );
     }
 
+    _queueStateEvent(state, device) {
+        const stateEvent = StateEvent.fromState(
+            state,
+            device.deviceId,
+            this.timeSinceStartup
+        );
+        const e = new CustomEvent('event', {
+            detail: { event: stateEvent, device: device },
+        });
+        super.onEvent.dispatchEvent(e);
+    }
+
+    _onMouseEvent(event) {
+        this.mouse.queueEvent(event);
+        this.mouse.currentState.position = this._corrector.map(
+            this.mouse.currentState.position
+        );
+        this._queueStateEvent(this.mouse.currentState, this.mouse);
+    }
+
     _onTouchEvent(event) {
         this.touchScreen.queueEvent(event, this.timeSinceStartup);
         for (let touch of this.touchScreen.currentState.touchData) {
             this._queueStateEvent(touch, this.touchScreen);
         }
+    }
+
+    addMouse() {
+        const descriptionMouse = {
+            m_InterfaceName: 'RawInput',
+            m_DeviceClass: 'Mouse',
+            m_Manufacturer: '',
+            m_Product: '',
+            m_Serial: '',
+            m_Version: '',
+            m_Capabilities: '',
+        };
+        this.mouse = new Mouse('Mouse', 'Mouse', 1, '', descriptionMouse);
+        this._devices.push(this.mouse);
+
+        this._element.addEventListener(
+            'click',
+            this._onMouseEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'mousedown',
+            this._onMouseEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'mouseup',
+            this._onMouseEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'mousemove',
+            this._onMouseEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'wheel',
+            this._onWheelEvent.bind(this),
+            false
+        );
     }
 
     addTouchScreen() {
