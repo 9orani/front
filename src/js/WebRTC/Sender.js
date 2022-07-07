@@ -50,12 +50,43 @@ export class Sender extends LocalInputManager {
         super.onEvent.dispatchEvent(e);
     }
 
+    _queueTextEvent(device, character) {
+        const textEvent = TextEvent.create(
+            device.deviceId,
+            character,
+            this.timeSinceStartup
+        );
+        const e = new CustomEvent('event', {
+            detail: { event: textEvent, device: device },
+        });
+        super.onEvent.dispatchEvent(e);
+    }
+
     _onMouseEvent(event) {
         this.mouse.queueEvent(event);
         this.mouse.currentState.position = this._corrector.map(
             this.mouse.currentState.position
         );
         this._queueStateEvent(this.mouse.currentState, this.mouse);
+    }
+
+    _onKeyEvent(event) {
+        if (event.type == 'keydown') {
+            if (!event.repeat) {
+                // StateEvent
+                this.keyboard.queueEvent(event);
+                this._queueStateEvent(
+                    this.keyboard.currentState,
+                    this.keyboard
+                );
+            }
+            // TextEvent
+            const key = event.key.charCodeAt(0);
+            this._queueTextEvent(this.keyboard, key);
+        } else if (event.type == 'keyup') {
+            this.keyboard.queueEvent(event);
+            this._queueStateEvent(this.keyboard.currentState, this.keyboard);
+        }
     }
 
     _onTouchEvent(event) {
@@ -101,6 +132,33 @@ export class Sender extends LocalInputManager {
         this._element.addEventListener(
             'wheel',
             this._onWheelEvent.bind(this),
+            false
+        );
+    }
+
+    addKeyboard() {
+        const descriptionKeyboard = {
+            m_InterfaceName: 'RawInput',
+            m_DeviceClass: 'Keyboard',
+            m_Manufacturer: '',
+            m_Product: '',
+            m_Serial: '',
+            m_Version: '',
+            m_Capabilities: '',
+        };
+        this.keyboard = new Keyboard(
+            'Keyboard',
+            'Keyboard',
+            2,
+            '',
+            descriptionKeyboard
+        );
+        this._devices.push(this.keyboard);
+
+        document.addEventListener('keyup', this._onKeyEvent.bind(this), false);
+        document.addEventListener(
+            'keydown',
+            this._onKeyEvent.bind(this),
             false
         );
     }
