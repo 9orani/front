@@ -1,6 +1,6 @@
 import { Mouse } from './input/Mouse';
 import { Keyboard } from './input/Keyboard';
-import { TouchScreen } from './input/Touchscreen';
+import { TouchScreen } from './input/TouchScreen';
 import { StateEvent } from './inputEvent/StateEvent';
 import { TextEvent } from './inputEvent/TextEvent';
 
@@ -35,6 +35,59 @@ export class Sender extends LocalInputManager {
             this._element.videoWidth,
             this._element.videoHeight,
             this._element.getBoundingClientRect()
+        );
+    }
+
+    _onTouchEvent(event) {
+        this.touchScreen.queueEvent(event, this.timeSinceStartup);
+        for (let touch of this.touchScreen.currentState.touchData) {
+            this._queueStateEvent(touch, this.touchScreen);
+        }
+    }
+
+    addTouchScreen() {
+        const descriptionTouch = {
+            m_InterfaceName: 'RawInput',
+            m_DeviceClass: 'Touch',
+            m_Manufacturer: '',
+            m_Product: '',
+            m_Serial: '',
+            m_Version: '',
+            m_Capabilities: '',
+        };
+        this.touchScreen = new TouchScreen(
+            'Touchscreen',
+            'Touchscreen',
+            4,
+            '',
+            descriptionTouch
+        );
+        this._devices.push(this.touchScreen);
+
+        this._element.addEventListener(
+            'touchend',
+            this._onTouchEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'touchstart',
+            this._onTouchEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'touchcancel',
+            this._onTouchEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'touchmove',
+            this._onTouchEvent.bind(this),
+            false
+        );
+        this._element.addEventListener(
+            'click',
+            this._onTouchEvent.bind(this),
+            false
         );
     }
 }
