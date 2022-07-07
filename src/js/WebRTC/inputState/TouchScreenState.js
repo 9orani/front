@@ -1,7 +1,7 @@
-import { IInputState } from './IInputState';
-import { FourCC } from '../utils/FourCC';
-import { TouchPhase } from '../constants/TouchPhase';
-import { TouchFlags } from '../constants/TouchFlags';
+import { IInputState } from './IInputState.js';
+import { FourCC } from '../utils/FourCC.js';
+import { TouchPhase } from '../constants/TouchPhase.js';
+import { TouchFlags } from '../constants/TouchFlags.js';
 
 export class TouchScreenState extends IInputState {
     static get maxTouches() {

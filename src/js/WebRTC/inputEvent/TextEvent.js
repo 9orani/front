@@ -1,5 +1,6 @@
-import { FourCC } from '../utils/FourCC';
-import { MemoryHelper } from '../utils/MemoryHelper';
+import { FourCC } from '../utils/FourCC.js';
+import { MemoryHelper } from '../utils/MemoryHelper.js';
+import { InputEvent } from './InputEvent.js';
 
 export class TextEvent {
     static get format() {

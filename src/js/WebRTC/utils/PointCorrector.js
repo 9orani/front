@@ -1,4 +1,4 @@
-import { LetterBoxType } from '../constants/LetterBoxType';
+import { LetterBoxType } from '../constants/LetterBoxType.js';
 
 export class PointerCorrector {
     /**

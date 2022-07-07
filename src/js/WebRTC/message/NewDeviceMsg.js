@@ -1,5 +1,5 @@
-import { Message } from './Message';
-import { MessageType } from '../constants/MessageType';
+import { Message } from './Message.js';
+import { MessageType } from '../constants/MessageType.js';
 
 export class NewDeviceMsg {
     /**

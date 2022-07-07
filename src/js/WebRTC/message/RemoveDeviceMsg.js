@@ -1,6 +1,6 @@
-import { Message } from './Message';
-import { MessageType } from '../constants/MessageType';
-import { MemoryHelper } from '../utils/MemoryHelper';
+import { Message } from './Message.js';
+import { MessageType } from '../constants/MessageType.js';
+import { MemoryHelper } from '../utils/MemoryHelper.js';
 
 export class RemoveDeviceMsg {
     /**

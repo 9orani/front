@@ -1,5 +1,5 @@
-import { InputDevice } from './InputDevice';
-import { TouchScreenState } from '../inputState/TouchScreenState';
+import { InputDevice } from './InputDevice.js';
+import { TouchScreenState } from '../inputState/TouchScreenState.js';
 
 export class TouchScreen extends InputDevice {
     /**

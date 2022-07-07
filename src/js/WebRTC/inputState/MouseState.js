@@ -1,6 +1,7 @@
-import { IInputState } from './IInputState';
-import { FourCC } from '../utils/FourCC';
-import { MemoryHelper } from '../utils/MemoryHelper';
+import { IInputState } from './IInputState.js';
+import { FourCC } from '../utils/FourCC.js';
+import { MemoryHelper } from '../utils/MemoryHelper.js';
+import { MouseButton } from '../constants/MouseButton.js';
 
 export class MouseState extends IInputState {
     static get size() {

@@ -1,13 +1,14 @@
-import { Mouse } from './input/Mouse';
-import { Keyboard } from './input/Keyboard';
-import { TouchScreen } from './input/TouchScreen';
+import { Mouse } from './input/Mouse.js';
+import { Keyboard } from './input/Keyboard.js';
+import { TouchScreen } from './input/TouchScreen.js';
+import { Gamepad } from './input/Gamepad.js';
 
-import { StateEvent } from './inputEvent/StateEvent';
-import { TextEvent } from './inputEvent/TextEvent';
+import { StateEvent } from './inputEvent/StateEvent.js';
+import { TextEvent } from './inputEvent/TextEvent.js';
 
-import { LocalInputManager } from './LocalInputManager';
-import { GamepadHandler } from './GamepadHandler';
-import { PointerCorrector } from './utils/PointCorrector';
+import { LocalInputManager } from './LocalInputManager.js';
+import { GamepadHandler } from './GamepadHandler.js';
+import { PointerCorrector } from './utils/PointCorrector.js';
 
 export class Sender extends LocalInputManager {
     constructor(element) {
@@ -86,6 +87,10 @@ export class Sender extends LocalInputManager {
             this.keyboard.queueEvent(event);
             this._queueStateEvent(this.keyboard.currentState, this.keyboard);
         }
+    }
+    _onWheelEvent(event) {
+        this.mouse.queueEvent(event);
+        this._queueStateEvent(this.mouse.currentState, this.mouse);
     }
     _onTouchEvent(event) {
         this.touchScreen.queueEvent(event, this.timeSinceStartup);

@@ -1,5 +1,6 @@
-import { FourCC } from '../utils/FourCC';
-import { MemoryHelper } from '../utils/MemoryHelper';
+import { FourCC } from '../utils/FourCC.js';
+import { MemoryHelper } from '../utils/MemoryHelper.js';
+import { InputEvent } from './InputEvent.js';
 
 export class StateEvent {
     static get format() {
@@ -47,6 +48,7 @@ export class StateEvent {
         );
         stateEvent.stateFormat = state.format;
         stateEvent.stateData = stateData;
+
         return stateEvent;
     }
 

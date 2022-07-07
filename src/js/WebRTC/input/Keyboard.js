@@ -1,5 +1,5 @@
-import { InputDevice } from './InputDevice';
-import { KeyboardState } from '../inputState/KeyboardState';
+import { InputDevice } from './InputDevice.js';
+import { KeyboardState } from '../inputState/KeyboardState.js';
 
 export class Keyboard extends InputDevice {
     static get keycount() {

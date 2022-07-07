@@ -1,5 +1,5 @@
-import { InputDevice } from './InputDevice';
-import { GamepadState } from '../inputState/GamepadState';
+import { InputDevice } from './InputDevice.js';
+import { GamepadState } from '../inputState/GamepadState.js';
 
 export class Gamepad extends InputDevice {
     /**

@@ -1,5 +1,5 @@
-import { FourCC } from '../utils/FourCC';
-import { TouchPhase } from '../constants/TouchPhase';
+import { FourCC } from '../utils/FourCC.js';
+import { TouchPhase } from '../constants/TouchPhase.js';
 
 export class TouchState {
     static get format() {

@@ -1,5 +1,5 @@
-import { InputDevice } from './InputDevice';
-import { MouseState } from '../inputState/MouseState';
+import { InputDevice } from './InputDevice.js';
+import { MouseState } from '../inputState/MouseState.js';
 
 export class Mouse extends InputDevice {
     /**

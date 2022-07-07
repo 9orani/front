@@ -1,4 +1,4 @@
-import { MemoryHelper } from '../utils/MemoryHelper';
+import { MemoryHelper } from '../utils/MemoryHelper.js';
 
 export class Message {
     /**
