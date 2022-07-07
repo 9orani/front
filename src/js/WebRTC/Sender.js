@@ -1,6 +1,7 @@
 import { Mouse } from './input/Mouse';
 import { Keyboard } from './input/Keyboard';
 import { TouchScreen } from './input/TouchScreen';
+
 import { StateEvent } from './inputEvent/StateEvent';
 import { TextEvent } from './inputEvent/TextEvent';
 
@@ -49,7 +50,6 @@ export class Sender extends LocalInputManager {
         });
         super.onEvent.dispatchEvent(e);
     }
-
     _queueTextEvent(device, character) {
         const textEvent = TextEvent.create(
             device.deviceId,
@@ -69,7 +69,6 @@ export class Sender extends LocalInputManager {
         );
         this._queueStateEvent(this.mouse.currentState, this.mouse);
     }
-
     _onKeyEvent(event) {
         if (event.type == 'keydown') {
             if (!event.repeat) {
@@ -88,11 +87,27 @@ export class Sender extends LocalInputManager {
             this._queueStateEvent(this.keyboard.currentState, this.keyboard);
         }
     }
-
     _onTouchEvent(event) {
         this.touchScreen.queueEvent(event, this.timeSinceStartup);
         for (let touch of this.touchScreen.currentState.touchData) {
             this._queueStateEvent(touch, this.touchScreen);
+        }
+    }
+    _onGamepadEvent(event) {
+        switch (event.type) {
+            case 'gamepadconnected': {
+                this._gamepadHandler.addGamepad(event.gamepad);
+                break;
+            }
+            case 'gamepaddisconnected': {
+                this._gamepadHandler.removeGamepad(event.gamepad);
+                break;
+            }
+            case 'gamepadupdated': {
+                this.gamepad.queueEvent(event);
+                this._queueStateEvent(this.gamepad.currentState, this.gamepad);
+                break;
+            }
         }
     }
 
@@ -205,6 +220,43 @@ export class Sender extends LocalInputManager {
         this._element.addEventListener(
             'click',
             this._onTouchEvent.bind(this),
+            false
+        );
+    }
+
+    addGamepad() {
+        const descriptionGamepad = {
+            m_InterfaceName: 'RawInput',
+            m_DeviceClass: 'Gamepad',
+            m_Manufacturer: '',
+            m_Product: '',
+            m_Serial: '',
+            m_Version: '',
+            m_Capabilities: '',
+        };
+        this.gamepad = new Gamepad(
+            'Gamepad',
+            'Gamepad',
+            3,
+            '',
+            descriptionGamepad
+        );
+        this._devices.push(this.gamepad);
+
+        window.addEventListener(
+            'gamepadconnected',
+            this._onGamepadEvent.bind(this),
+            false
+        );
+        window.addEventListener(
+            'gamepaddisconnected',
+            this._onGamepadEvent.bind(this),
+            false
+        );
+        this._gamepadHandler = new GamepadHandler();
+        this._gamepadHandler.addEventListener(
+            'gamepadupdated',
+            this._onGamepadEvent.bind(this),
             false
         );
     }
