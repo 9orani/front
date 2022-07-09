@@ -145,6 +145,8 @@ export class VideoPlayer {
 
         this.inputRemoting.subscribe(new Observer(this.inputSenderChannel));
 
+        this.peerConnection.addTransceiver('video', { direction: 'recvonly' });
+
         // create offer
         const offer = await this.peerConnection.createOffer();
 
