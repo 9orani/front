@@ -1,3 +1,8 @@
+import { NewDeviceMsg } from '../message/NewDeviceMsg.js';
+import { NewEventsMsg } from '../message/NewEventsMsg.js';
+import { RemoveDeviceMsg } from '../message/RemoveDeviceMsg.js';
+import { ChangeUsageMsg } from '../message/ChangeUsageMsg.js';
+
 export class InputRemoting {
     /**
      * @param {LocalInputManager} manager
@@ -86,13 +91,13 @@ export class InputRemoting {
         let msg = null;
         switch (change) {
             case InputDeviceChange.Added:
-                msg = NewDeviceMsg.Create(device);
+                msg = NewDeviceMsg.create(device);
                 break;
             case InputDeviceChange.Removed:
-                msg = RemoveDeviceMsg.Create(device);
+                msg = RemoveDeviceMsg.create(device);
                 break;
             case InputDeviceChange.UsageChanged:
-                msg = ChangeUsageMsg.Create(device);
+                msg = ChangeUsageMsg.create(device);
                 break;
             default:
                 return;
