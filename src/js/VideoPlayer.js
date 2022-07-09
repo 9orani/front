@@ -85,12 +85,11 @@ export class VideoPlayer {
 
         this.peerConnection.onicecandidate = (e) => {
             if (e.candidate != null) {
-                const { candidate, sdpMid, sdpMLineIndex } = e.candidate;
                 this.signaling.sendCandidate(
                     _this.connectionId,
-                    candidate,
-                    sdpMid,
-                    sdpMLineIndex
+                    e.candidate.candidate,
+                    e.candidate.sdpMid,
+                    e.candidate.sdpMLineIndex
                 );
             }
         };
@@ -202,9 +201,9 @@ export class VideoPlayer {
     }
 
     close() {
-        if (this.pc) {
-            this.pc.close();
-            this.pc = null;
+        if (this.peerConnection) {
+            this.peerConnection.close();
+            this.peerConnection = null;
         }
     }
 
