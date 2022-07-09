@@ -1,10 +1,28 @@
 import { VideoPlayer } from './js/VideoPlayer.js';
 
+const playerDiv = document.getElementById('player');
+
 let videoPlayer;
 let playButton;
 
+window.document.oncontextmenu = () => {
+    return false;
+};
+
+window.addEventListener('resize', () => {
+    videoPlayer.resizeVideo();
+});
+
+window.addEventListener(
+    'beforeunload',
+    async () => {
+        await videoPlayer.stop();
+    },
+    true
+);
+
 const showPlayButton = () => {
-    if (!document.getElementById('playBuuton')) {
+    if (!document.getElementById('playButton')) {
         let elementPlayButton = document.createElement('img');
 
         elementPlayButton.id = 'playButton';
@@ -26,8 +44,7 @@ const onClickPlayButton = () => {
     elementVideo.id = 'Video';
     elementVideo.style.touchAction = 'none';
 
-    const playerDiv = document.getElementById('player');
-    playerDiv.appendChild(elementVideo);
+    playerDiv.append(elementVideo);
 
     setUpVideoPlayer([elementVideo]).then((value) => (videoPlayer = value));
 
