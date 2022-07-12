@@ -2,6 +2,7 @@ import { NewDeviceMsg } from '../message/NewDeviceMsg.js';
 import { NewEventsMsg } from '../message/NewEventsMsg.js';
 import { RemoveDeviceMsg } from '../message/RemoveDeviceMsg.js';
 import { ChangeUsageMsg } from '../message/ChangeUsageMsg.js';
+import { InputDeviceChange } from '../constants/InputDeviceChange.js';
 
 export class InputRemoting {
     /**
