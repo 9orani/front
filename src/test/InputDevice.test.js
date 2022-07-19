@@ -2,6 +2,7 @@ import { FourCC } from '../js/WebRTC/utils/FourCC';
 
 import { MouseState } from '../js/WebRTC/inputState/MouseState';
 import { KeyboardState } from '../js/WebRTC/inputState/KeyboardState';
+import { TouchScreenState } from '../js/WebRTC/inputState/TouchScreenState';
 
 describe('FourCC', () => {
     test('toInt32', () => {
@@ -66,6 +67,44 @@ describe('KeyBoardState', () => {
 
     test('buffer', () => {
         const state = new KeyboardState(event);
+        expect(state.buffer.byteLength).toBeGreaterThan(0);
+    });
+});
+
+describe('TouchScreenState', () => {
+    let event;
+
+    beforeEach(() => {
+        event = new TouchEvent('touchstart', {
+            changedTouches: [
+                {
+                    identifier: 0,
+                    target: null,
+                    clientX: 0,
+                    clientY: 0,
+                    screenX: 0,
+                    screenY: 0,
+                    pageX: 0,
+                    pageY: 0,
+                    radiusX: 0,
+                    radiusY: 0,
+                    rotationAngle: 0,
+                    force: 0,
+                    altitudeAngle: 0,
+                    azimuthAngle: 0,
+                    touchType: 'direct',
+                },
+            ],
+        });
+    });
+
+    test('format', () => {
+        const format = new TouchScreenState(event, null, Date.now()).format;
+        expect(format).toBe(0x54534352);
+    });
+
+    test('buffer', () => {
+        const state = new TouchScreenState(event, null, Date.now());
         expect(state.buffer.byteLength).toBeGreaterThan(0);
     });
 });
