@@ -32,6 +32,13 @@ export class Sender extends LocalInputManager {
         observer.observe(this._element);
     }
 
+    /**
+     * @returns {InputDevice[]}
+     */
+    get devices() {
+        return this._devices;
+    }
+
     _onResizeEvent() {
         this._corrector.reset(
             this._element.videoWidth,
