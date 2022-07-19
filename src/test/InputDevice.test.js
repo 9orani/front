@@ -3,7 +3,10 @@ import { FourCC } from '../js/WebRTC/utils/FourCC';
 import { MouseState } from '../js/WebRTC/inputState/MouseState';
 import { KeyboardState } from '../js/WebRTC/inputState/KeyboardState';
 import { TouchScreenState } from '../js/WebRTC/inputState/TouchScreenState';
+
 import { StateEvent } from '../js/WebRTC/inputEvent/StateEvent';
+import { TextEvent } from '../js/WebRTC/inputEvent/TextEvent';
+import { InputEvent } from '../js/WebRTC/inputEvent/InputEvent';
 
 describe('FourCC', () => {
     test('toInt32', () => {
@@ -123,5 +126,20 @@ describe('StateEvent', () => {
         expect(new Int32Array(stateEvent.buffer.slice(0, 4))[0]).toBe(
             StateEvent.format
         );
+    });
+});
+
+describe('TextEvent', () => {
+    test('buffer', () => {
+        const character = 0x41;
+        const textEvent = TextEvent.create(0, character, Date.now());
+        expect(new Int32Array(textEvent.buffer.slice(0, 4))[0]).toBe(
+            TextEvent.format
+        );
+
+        const offset = InputEvent.size;
+        expect(
+            new Uint32Array(textEvent.buffer.slice(offset, offset + 4))[0]
+        ).toBe(character);
     });
 });
