@@ -8,6 +8,10 @@ import { StateEvent } from '../js/WebRTC/inputEvent/StateEvent';
 import { TextEvent } from '../js/WebRTC/inputEvent/TextEvent';
 import { InputEvent } from '../js/WebRTC/inputEvent/InputEvent';
 
+import { Mouse } from '../js/WebRTC/input/Mouse';
+import { Keyboard } from '../js/WebRTC/input/Keyboard';
+import { TouchScreen } from '../js/WebRTC/input/TouchScreen';
+
 describe('FourCC', () => {
     test('toInt32', () => {
         const number = new FourCC('A', 'A', 'A', 'A').toInt32();
@@ -141,5 +145,32 @@ describe('TextEvent', () => {
         expect(
             new Uint32Array(textEvent.buffer.slice(offset, offset + 4))[0]
         ).toBe(character);
+    });
+});
+
+describe('Mouse', () => {
+    test('alignedSizeInBytes', () => {
+        let device = new Mouse('Mouse', 'Mouse', 1, null, null);
+        expect(device).toBeInstanceOf(Mouse);
+    });
+});
+
+describe('Keyboard', () => {
+    test('alignedSizeInBytes', () => {
+        let device = new Keyboard('Keyboard', 'Keyboard', 1, null, null);
+        expect(device).toBeInstanceOf(Keyboard);
+    });
+});
+
+describe('TouchScreen', () => {
+    test('alignedSizeInBytes', () => {
+        let device = new TouchScreen(
+            'TouchScreen',
+            'TouchScreen',
+            1,
+            null,
+            null
+        );
+        expect(device).toBeInstanceOf(TouchScreen);
     });
 });
