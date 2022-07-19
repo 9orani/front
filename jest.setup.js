@@ -1,7 +1,7 @@
 import fetch from 'node-fetch';
 
-import PeerConnectionMock from './src/test/PeerConnectionMock';
-import ResizeObserverMock from './src/test/ResizeObserverMock';
+import PeerConnectionMock from './test/PeerConnectionMock';
+import ResizeObserverMock from './test/ResizeObserverMock';
 
 if (!window.fetch) {
     window.fetch = fetch;

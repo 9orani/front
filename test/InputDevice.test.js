@@ -1,16 +1,16 @@
-import { FourCC } from '../js/WebRTC/utils/FourCC';
+import { FourCC } from '../src/js/WebRTC/utils/FourCC';
 
-import { MouseState } from '../js/WebRTC/inputState/MouseState';
-import { KeyboardState } from '../js/WebRTC/inputState/KeyboardState';
-import { TouchScreenState } from '../js/WebRTC/inputState/TouchScreenState';
+import { MouseState } from '../src/js/WebRTC/inputState/MouseState';
+import { KeyboardState } from '../src/js/WebRTC/inputState/KeyboardState';
+import { TouchScreenState } from '../src/js/WebRTC/inputState/TouchScreenState';
 
-import { StateEvent } from '../js/WebRTC/inputEvent/StateEvent';
-import { TextEvent } from '../js/WebRTC/inputEvent/TextEvent';
-import { InputEvent } from '../js/WebRTC/inputEvent/InputEvent';
+import { StateEvent } from '../src/js/WebRTC/inputEvent/StateEvent';
+import { TextEvent } from '../src/js/WebRTC/inputEvent/TextEvent';
+import { InputEvent } from '../src/js/WebRTC/inputEvent/InputEvent';
 
-import { Mouse } from '../js/WebRTC/input/Mouse';
-import { Keyboard } from '../js/WebRTC/input/Keyboard';
-import { TouchScreen } from '../js/WebRTC/input/TouchScreen';
+import { Mouse } from '../src/js/WebRTC/input/Mouse';
+import { Keyboard } from '../src/js/WebRTC/input/Keyboard';
+import { TouchScreen } from '../src/js/WebRTC/input/TouchScreen';
 
 describe('FourCC', () => {
     test('toInt32', () => {
