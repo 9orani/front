@@ -1,6 +1,7 @@
 import { FourCC } from '../js/WebRTC/utils/FourCC';
 
 import { MouseState } from '../js/WebRTC/inputState/MouseState';
+import { KeyboardState } from '../js/WebRTC/inputState/KeyboardState';
 
 describe('FourCC', () => {
     test('toInt32', () => {
@@ -48,5 +49,23 @@ describe('MouseState', () => {
             const state = new MouseState(event);
             expect(state.buffer.byteLength).toBeGreaterThan(0);
         });
+    });
+});
+
+describe('KeyBoardState', () => {
+    let event;
+
+    beforeEach(() => {
+        event = new KeyboardEvent('keydown', { code: 'KeyA' });
+    });
+
+    test('format', () => {
+        const format = new KeyboardState(event).format;
+        expect(format).toBe(0x4b455953);
+    });
+
+    test('buffer', () => {
+        const state = new KeyboardState(event);
+        expect(state.buffer.byteLength).toBeGreaterThan(0);
     });
 });
