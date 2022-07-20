@@ -7,10 +7,9 @@ export class WebSocketSignaling extends EventTarget {
 
         let websocketUrl;
         if (location.protocol === 'https:') {
-            websocketUrl = 'wss://' + location.host;
+            websocketUrl = `wss://${location.host}`;
         } else {
-            // websocketUrl = 'ws://' + location.host;
-            websocketUrl = 'ws://localhost:8081';
+            websocketUrl = `ws://${location.host}`;
         }
 
         this.websocket = new WebSocket(websocketUrl);
