@@ -64,7 +64,7 @@
     font-family: 'Patua One'; 
     align-items: center;
     text-align: center;
-    font-size: 20px;
+    font-size: 18px;
     color : var(--black);
 }
 
@@ -89,7 +89,7 @@
     color : var(--black);
     text-align: center;
     border-radius: 25px;
-    background-color: var(--mild-pink);
+    background-color: var(--thick-yellow);
     border : 1px solid; 
     border-color: var(--gray);
 }
