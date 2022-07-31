@@ -1,0 +1,33 @@
+@import "color.css"; 
+@import "font.css"; 
+
+.status-header{
+    background-color: var(--mild-pink); 
+    display: flex; 
+    flex-direction:column;
+    flex-wrap: wrap;
+    justify-content: flex-end; 
+    align-items: flex-end; 
+    align-content: flex-end;
+}
+
+.nav-menu{
+    width: 20%;
+}
+
+.double-main{
+    flex-grow:5;
+}
+
+.lobby-panel-inside{
+    position: relative; 
+    top : 0%; 
+    right:0%; 
+    left: 0%; 
+    align-items: center;
+    width: 200%;
+    height: 100%;
+    margin: 0;
+    padding: 0; 
+    flex: 1 0 100%; 
+}

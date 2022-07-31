@@ -1,0 +1,60 @@
+<html>
+    <head>
+        <title>Gorani - Lobby</title>
+        <link rel="stylesheet" href="./css/layout.css" />
+        <link rel="stylesheet" href="./css/main-panel.css" />
+        <link rel="stylesheet" href="./css/lobby.css" />
+    </head>
+    <body>
+        <div class = "container">
+            <div class = "status-header basic-header">
+                <div class="nav-menu"><p id = "text2"> Hello, {id}</p></div>
+                <div class="nav-menu"><p id ="text2">LOGOUT</p></div>
+            </div>
+            <div class = "basic-content">
+                <div class = "basic-bar"></div>
+                <div class = "double-main basic-main">
+                    <div id="center-panel">
+                        <div id = "lobby-panel-inside panel-inside">
+                            <p id = "text1">CREATE ROOM</p>
+                            <table id = "max">
+                                <tr>
+                                    <td><p id = "text2"> ROOM NAME</p></td>
+                                    <td><input id="panel-input" type="text" id="roomname" name="roomname" placeholder="Enter Roomname" required></td>
+                                </tr>
+                                <tr>
+                                    <td><p id = "text2"> MAX CAPACITY</p></td>
+                                    <td><input id="panel-input" type="number" id="capacity" name="capacity" placeholder=30 required></td>
+                                </tr>
+                                <tr>
+                                    <td colspan = 2><button id="panel-button">create</button> </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class = "basic-bar"></div>
+                <div class = "double-main basic-main">
+                    <div id="center-panel">
+                        <div id = "lobby-panel-inside panel-inside">
+                            <p id = "text1">ENTER ROOM</p>
+                            <table id = "max">
+                                <tr>
+                                    <td><p id = "text2"> ENTER CODE</p></td>
+                                    <td><input id="panel-input" type="text" id="entercode" name="entercode" placeholder="Enter entercode" required></td>
+                                </tr>
+                                <tr>
+                                    <td colspan = 2><button id="panel-button">enter</button> </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class = "basic-bar"></div>
+            </div>
+            <div class = "basic-footer">
+                @gorani
+            </div>
+        </div>
+    </body>
+</html>

@@ -1,6 +1,12 @@
 @import "color.css"; 
 @import "font.css"; 
 
+body {
+    margin :0;
+    width :100%;
+    height :100%; 
+}
+
 #center-panel{
     height: 70%; 
     width: 80%;
@@ -14,7 +20,7 @@
 
     text-align: center;
     display: flex;
-    flex-direction: row;
+    /* flex-direction: row; */ 
     position: relative;
 }
 
@@ -107,9 +113,9 @@ table, tr, td {
 }
 
 th, tr{
-    height: 20%;
+    height: 15%;
 }
 
 td{
-    height: 20%;
+    height: 15%;
 }
