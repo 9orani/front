@@ -1,0 +1,115 @@
+@import "color.css"; 
+@import "font.css"; 
+
+#center-panel{
+    height: 70%; 
+    width: 80%;
+    border-radius: 25px;
+    border : 1px solid; 
+    border-color: var(--gray);
+    padding :5%; 
+    box-shadow: 10px 20px var(--gray);
+    background-color: whitesmoke; 
+    margin: 0;
+
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    position: relative;
+}
+
+#center-text{
+    margin-top: 30%;
+    position: relative; 
+}
+
+#center-logo{
+    position: absolute;
+    height: 20%; 
+    left : 42%; 
+    margin : auto;   
+}
+
+#panel-inside{
+    position: relative;
+    top : 25%; 
+    height : 70%; 
+    width: 100%;
+    /* background-color: var(--mild-yellow); */ 
+    margin-left : auto;
+    margin-right: auto;
+
+    /*-- display: flex;
+    flex-direction: row; --*/ 
+    align-items: center;
+}
+
+#max{
+    position: relative;
+    height: 100%;
+    width: 80%;
+    margin: auto;
+}
+
+#text1{
+    color : var(--thick-pink); 
+    font-family:'Bungee';
+    font-size : 30px; 
+    align-items: center;
+    text-align: center;
+}
+
+#text2{
+    color : var(--black);
+    font-family: 'Patua One'; 
+    align-items: center;
+    text-align: center;
+    font-size: 20px;
+    color : var(--black);
+}
+
+#panel-input{
+    font-family: 'Patua One'; 
+    width: 60%; 
+    height: 80%; 
+    font-size: 20px;
+    color : var(--black);
+    text-align: center;
+    border-radius: 25px;
+    background-color: var(--mild-pink);
+    border : 1px solid; 
+    border-color: var(--gray);
+}
+
+#panel-button{
+    font-family: 'Patua One'; 
+    width: 60%; 
+    height: 80%; 
+    font-size: 20px;
+    color : var(--black);
+    text-align: center;
+    border-radius: 25px;
+    background-color: var(--mild-pink);
+    border : 1px solid; 
+    border-color: var(--gray);
+}
+
+#panel-button:hover {
+    background-color: var(--thick-pink); 
+    color: white;
+}
+
+
+table, tr, td {
+    align-items: center;
+    text-align: center;
+    /*-- border:1px solid black; --*/ 
+}
+
+th, tr{
+    height: 20%;
+}
+
+td{
+    height: 20%;
+}

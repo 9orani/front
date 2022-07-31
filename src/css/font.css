@@ -1,0 +1,8 @@
+@import url('https://fonts.googleapis.com/css2?family=Fredericka+the+Great&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Bungee&family=Patua+One&display=swap');
+
+@font-face{
+    font-family: 'MaruBuri-Regular'; 
+    src :   url('../font/MaruBuri-Regular.otf') format('otf'), 
+            url('../font/MaruBuri-Regular.ttf') format('ttf'); 
+}
