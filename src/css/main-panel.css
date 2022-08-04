@@ -19,7 +19,7 @@ body {
     margin: 0;
 
     text-align: center;
-    display: flex;
+    /* display: flex; */
     /* flex-direction: row; */ 
     position: relative;
 }
