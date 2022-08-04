@@ -1,4 +1,4 @@
-import { VideoPlayer } from './js/VideoPlayer.js';
+import { VideoPlayer } from '../js/VideoPlayer.js';
 
 const playerDiv = document.getElementById('player');
 
@@ -26,7 +26,7 @@ const showPlayButton = () => {
         let elementPlayButton = document.createElement('img');
 
         elementPlayButton.id = 'playButton';
-        elementPlayButton.src = 'images/Play.png';
+        elementPlayButton.src = '../images/Play.png';
         elementPlayButton.alt = 'Start Streaming';
 
         playButton = document
@@ -51,7 +51,7 @@ const onClickPlayButton = () => {
     // add fullscreen button
     const elementFullscreenButton = document.createElement('img');
     elementFullscreenButton.id = 'fullscreenButton';
-    elementFullscreenButton.src = 'images/FullScreen.png';
+    elementFullscreenButton.src = '../images/FullScreen.png';
 
     playerDiv.appendChild(elementFullscreenButton);
 
