@@ -10,7 +10,7 @@
         <div class = "container">
             <div class = "status-header basic-header">
                 <div class="nav-menu"><p class = "text2" id = "username"></p></div>
-                <div class="nav-menu"><p class ="text2">LOGOUT</p></div>
+                <div class="nav-menu"><p class ="text2" onclick="logout();">LOGOUT</p></div>
             </div>
             <div class = "basic-content">
                 <div class = "basic-bar"></div>
@@ -67,6 +67,11 @@
         }
         setUsername();
 
+        const logout = () => {
+            localStorage.removeItem("jwt");
+            localStorage.removeItem("username");
+            window.location.href='./login';
+        }
         const URL = 'http://localhost:8080';
         const createRoom = async () => {
             try {
