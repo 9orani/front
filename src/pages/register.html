@@ -3,6 +3,7 @@
         <title>Gorani - Register</title>
         <link rel="stylesheet" href="../css/layout.css" />
         <link rel="stylesheet" href="../css/main-panel.css" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
         <div class = "container">
@@ -20,30 +21,26 @@
                                     <td colspan = 2><p id = "text1">REGISTER</p></td>
                                 </tr>
                                 <tr>
-                                    <td><p id = "text2">ID</p></td>
-                                    <td><input id="panel-input" type="text" id="id" name="id" placeholder="Enter Id" required></td>
+                                    <td><p class = "text2">ID</p></td>
+                                    <td><input class="panel-input" type="text" id="id" name="id" placeholder="Enter Id" required></td>
                                 </tr>
                                 <tr>
-                                    <td><p id = "text2">PW</p></td>
-                                    <td><input id="panel-input" type="password" id="pw" name="pw" placeholder="Enter Password" required> </td>
+                                    <td><p class = "text2">PW</p></td>
+                                    <td><input class="panel-input" type="password" id="pw" name="pw" placeholder="Enter Password" required> </td>
                                 </tr>
                                 <tr>
-                                    <td><p id = "text2">PW Confirm</p></td>
-                                    <td><input id="panel-input" type="password" id="pw" name="pw" placeholder="Confirm Password" required> </td>
+                                    <td><p class = "text2">Username</p></td>
+                                    <td><input class="panel-input" type="text" id="username" name="username" placeholder="Enter User" required></td>
                                 </tr>
                                 <tr>
-                                    <td><p id = "text2">Username</p></td>
-                                    <td><input id="panel-input" type="text" id="username" name="username" placeholder="Enter User" required></td>
+                                    <td><p class = "text2">email</p></td>
+                                    <td><input class="panel-input" type="text" id="email" name="email" placeholder="Enter Email" required></td>
                                 </tr>
                                 <tr>
-                                    <td><p id = "text2">email</p></td>
-                                    <td><input id="panel-input" type="text" id="email" name="email" placeholder="Enter Email" required></td>
-                                </tr>
-                                <tr>
-                                    <td colspan = 2><button id="panel-button">SIGN UP</button> </td>
+                                    <td colspan = 2><button class="panel-button" onclick="register();">SIGN UP</button> </td>
                                 </tr>
                             </table>
-                            <p id = "text2">go back to <a href="/login" style="color:var(--mild-black);">LOGIN</a></p>
+                            <p class = "text2">go back to <a href="/login" style="color:var(--mild-black);">LOGIN</a></p>
                         </div>
                         
                     </div>
@@ -55,4 +52,33 @@
             </div>
         </div>
     </body>
+    <script>
+        const URL = 'http://localhost:8080';
+        const register = async () => {
+            try {
+                const id = document.getElementById('id').value;
+                const pw = document.getElementById('pw').value;
+                const email = document.getElementById('email').value;
+                const username = document.getElementById('username').value;
+                const response = await axios
+                    .post(URL + '/v1/auth/signUp', {
+                        loginId: id,
+                        password: pw,
+                        emailAddress: email,
+                        username: username,
+                    })
+                    .then(function (response) {
+                        localStorage.setItem("jwt", response?.data?.data?.token);
+                        localStorage.setItem("username", response?.data?.data?.username);
+                        window.location.href='./lobby';
+                    })
+                    .catch(function (error) {
+                        alert("wrong info. please retry.");
+                    });
+                console.log(response);
+            } catch (error) {
+                alert(error + " occurred. please retry.");
+            }
+        };
+    </script>
 </html>

@@ -4,12 +4,13 @@
         <link rel="stylesheet" href="../css/layout.css" />
         <link rel="stylesheet" href="../css/main-panel.css" />
         <link rel="stylesheet" href="../css/lobby.css" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     </head>
     <body>
         <div class = "container">
             <div class = "status-header basic-header">
-                <div class="nav-menu"><p id = "text2"> Hello, {id}</p></div>
-                <div class="nav-menu"><p id ="text2">LOGOUT</p></div>
+                <div class="nav-menu"><p class = "text2" id = "username"></p></div>
+                <div class="nav-menu"><p class ="text2">LOGOUT</p></div>
             </div>
             <div class = "basic-content">
                 <div class = "basic-bar"></div>
@@ -19,15 +20,15 @@
                             <p id = "text1">CREATE ROOM</p>
                             <table id = "max">
                                 <tr>
-                                    <td><p id = "text2"> ROOM NAME</p></td>
-                                    <td><input id="lobby-panel-input" type="text" id="roomname" name="roomname" placeholder="Enter Roomname" required></td>
+                                    <td><p class = "text2"> ROOM NAME</p></td>
+                                    <td><input class="lobby-panel-input" type="text" id="roomname" name="roomname" placeholder="Enter Roomname" required></td>
                                 </tr>
                                 <tr>
-                                    <td><p id = "text2"> MAX CAPACITY</p></td>
-                                    <td><input id="lobby-panel-input" type="number" id="capacity" name="capacity" placeholder=30 required></td>
+                                    <td><p class = "text2"> MAX CAPACITY</p></td>
+                                    <td><input class="lobby-panel-input" type="number" id="capacity" name="capacity" placeholder=30 required></td>
                                 </tr>
                                 <tr>
-                                    <td colspan = 2><button id="lobby-panel-button">create</button> </td>
+                                    <td colspan = 2><button class="lobby-panel-button" onclick="createRoom();">create</button> </td>
                                 </tr>
                             </table>
                         </div>
@@ -40,11 +41,11 @@
                             <p id = "text1">ENTER ROOM</p>
                             <table id = "max">
                                 <tr>
-                                    <td><p id = "text2"> ENTER CODE</p></td>
-                                    <td><input id="lobby-panel-input" type="text" id="entercode" name="entercode" placeholder="Enter entercode" required></td>
+                                    <td><p class = "text2"> ENTER CODE</p></td>
+                                    <td><input class="lobby-panel-input" type="text" id="entercode" name="entercode" placeholder="Enter entercode" required></td>
                                 </tr>
                                 <tr>
-                                    <td colspan = 2><button id="lobby-panel-button">enter</button> </td>
+                                    <td colspan = 2><button class="lobby-panel-button">enter</button> </td>
                                 </tr>
                             </table>
                         </div>
@@ -57,4 +58,43 @@
             </div>
         </div>
     </body>
+    <script>
+        const setUsername = () => {
+            const username = localStorage.getItem("username");
+            console.log(username);
+            document.getElementById('username').innerText = (username ? `Hello, ${username}` : 'Hello, anonymous');
+            console.log(document.getElementById('username').value);
+        }
+        setUsername();
+
+        const URL = 'http://localhost:8080';
+        const createRoom = async () => {
+            try {
+                const jwt = localStorage.getItem("jwt");
+                if (jwt == null) {
+                    window.location.href='./login';
+                }
+                const roomname = document.getElementById('roomname').value;
+                const capacity = document.getElementById('capacity').value;
+                const response = await axios
+                    .post(URL + '/v1/rooms', {
+                        name: roomname,
+                        maxPlayer: capacity,
+                    }, {
+                        headers: { Authorization: jwt }
+                    })
+                    .then(function (response) {
+                        alert("'" + roomname + "' room has been created");
+                        document.getElementById('roomname').value = ''
+                        document.getElementById('capacity').value = ''
+                    })
+                    .catch(function (error) {
+                        alert("Wrong roomname or capacity");
+                    });
+                console.log(response);
+            } catch (error) {
+                alert(error + " occurred. please retry.");
+            }
+        };
+    </script>
 </html>

@@ -65,7 +65,7 @@ body {
     text-align: center;
 }
 
-#text2{
+.text2{
     color : var(--black);
     font-family: 'Patua One'; 
     align-items: center;
@@ -74,7 +74,7 @@ body {
     color : var(--black);
 }
 
-#panel-input{
+.panel-input{
     font-family: 'Patua One'; 
     width: 60%; 
     height: 80%; 
@@ -87,7 +87,7 @@ body {
     border-color: var(--gray);
 }
 
-#panel-button{
+.panel-button{
     font-family: 'Patua One'; 
     width: 60%; 
     height: 80%; 
@@ -100,7 +100,7 @@ body {
     border-color: var(--gray);
 }
 
-#panel-button:hover {
+.panel-button:hover {
     background-color: var(--thick-pink); 
     color: white;
 }
