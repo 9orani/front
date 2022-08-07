@@ -224,6 +224,7 @@ export class VideoPlayer {
         await new Promise((resolve) => setTimeout(resolve, 100));
         const num = Math.floor(Math.random() * 100000);
         this._changeLabel(String(num));
+        // this._changeLabel("seunghui"); 
     }
 
     async stop() {

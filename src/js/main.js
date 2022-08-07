@@ -1,4 +1,4 @@
-import { VideoPlayer } from '../js/VideoPlayer.js';
+import { VideoPlayer } from './VideoPlayer.js';
 
 const playerDiv = document.getElementById('player');
 
