@@ -57,3 +57,14 @@
     border : 1px solid; 
     border-color: var(--gray);
 }
+
+@keyframes blink-effect {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+.blinking {
+    animation: blink-effect 2s step-end infinite;
+    color: red;
+}

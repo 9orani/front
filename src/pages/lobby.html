@@ -42,10 +42,13 @@
                             <table id = "max">
                                 <tr>
                                     <td><p class = "text2"> ENTER CODE</p></td>
-                                    <td><input class="lobby-panel-input" type="text" id="entercode" name="entercode" placeholder="Enter entercode" required></td>
+                                    <td><input class="lobby-panel-input" type="text" id="entercode" name="entercode" placeholder="entercode" required></td>
                                 </tr>
                                 <tr>
-                                    <td colspan = 2><button class="lobby-panel-button">enter</button> </td>
+                                    <td colspan="2"><p id="enternote" class="blinking text2"></p></td>
+                                </tr>
+                                <tr>
+                                    <td colspan = 2><button class="lobby-panel-button" onclick="enterRoom();">enter</button> </td>
                                 </tr>
                             </table>
                         </div>
@@ -89,9 +92,13 @@
                         headers: { Authorization: jwt }
                     })
                     .then(function (response) {
-                        alert("'" + roomname + "' room has been created");
+                        const new_roomcode = response?.data?.data?.visitCode; 
                         document.getElementById('roomname').value = ''
                         document.getElementById('capacity').value = ''
+                        document.getElementById('entercode').value = new_roomcode; 
+                        document.getElementById('enternote').innerHTML 
+                            = roomname + " room has been created.<br> \
+                            click below enter button to enter the room"; 
                     })
                     .catch(function (error) {
                         alert("Wrong roomname or capacity");
@@ -101,5 +108,40 @@
                 alert(error + " occurred. please retry.");
             }
         };
+
+        const enterRoom = async () => {
+            try{
+                const jwt = localStorage.getItem("jwt");
+                if (jwt == null) {
+                    window.location.href='./login';
+                }
+                const entercode = document.getElementById('entercode').value; 
+                document.getElementById('enternote').innterHTML = ''; 
+
+                const response = await axios 
+                    .post(URL + '/v1/enterroom', {
+                        visitCode : entercode, 
+                    }, {
+                        headers : {Authorization: jwt}
+                    })
+                    .then(function(response){
+                        const success = response?.data?.success; 
+                        const msg = response?.data?.msg; 
+                        const classURL = response?.data?.classURL; 
+                        if(response == true){
+                            window.location.href = classURL; 
+                        }
+                        else{
+                            document.getElementById('enternote').innerHTML 
+                               = "fail to enter the room. <br>" + msg; 
+                        }
+                    })
+                    .catch(function(error) {
+                        alert("Wrong enter code");
+                    }); 
+            } catch (error) {
+                alert(error + " occured. please retry."); 
+            }
+        }; 
     </script>
 </html>
