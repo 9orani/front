@@ -9,6 +9,7 @@ services:
       - ./configs/nginx:/etc/nginx/conf.d
     environment:
       - WEBRTC_ADDRESS=${WEBRTC_ADDRESS}
+      - SPRING_ADDRESS=${SPRING_ADDRESS}
     entrypoint: "/entrypoint.sh"
     ports:
       - 80:80
