@@ -1,0 +1,72 @@
+<html>
+    <head>
+        <title>Gorani - Login</title>
+        <link rel="stylesheet" href="../css/layout.css" />
+        <link rel="stylesheet" href="../css/main-panel.css" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div class = "container">
+            <div class = "basic-header"></div>
+            <div class = "basic-content">
+                <div class = "basic-bar"></div>
+                <div class = "basic-main">
+
+                    <div id="center-panel">
+                        <img id = "center-logo" src="../images/EGGCATION_LOGO.png">
+                        
+                        <div id = "panel-inside">
+                            <table id = "max">
+                                <tr>
+                                    <td><p id = "text1">LOGIN</p></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="panel-input" type="text" id="id" name="id" placeholder="Enter Id" required></td>
+                                </tr>
+                                <tr>
+                                    <td><input class="panel-input" type="password" id="pw" name="pw" placeholder="Enter Password" required> </td>
+                                </tr>
+                                <tr>
+                                    <td><button class="panel-button" onclick="login();">ENTER</button> </td>
+                                </tr>
+                                <tr>
+                                    <td><p id = "text1">go to <a href="./register" style="color:var(--mild-black);">SIGN UP</a></p></td>
+                                </tr>
+                            </table>
+                        </div>
+                        
+                    </div>
+                </div>
+                <div class = "basic-bar"></div>
+            </div>
+            <div class = "basic-footer">
+                @gorani
+            </div>
+        </div>
+    </body>
+    <script>
+        const URL = 'http://localhost:8080';
+        const login = async () => {
+            try {
+                const id = document.getElementById('id').value;
+                const pw = document.getElementById('pw').value;
+                const response = await axios
+                    .post(URL + '/v1/auth/signIn', {
+                        loginId: id,
+                        password: pw,
+                    })
+                    .then(function (response) {
+                        localStorage.setItem("jwt", response?.data?.data?.token);
+                        localStorage.setItem("username", response?.data?.data?.username);
+                        window.location.href='./lobby';
+                    })
+                    .catch(function (error) {
+                        alert("Wrong id or password");
+                    });
+                console.log(response);
+            } catch (error) {
+                alert(error + " occurred. please retry.");
+            }
+        };
+    </script>
+</html>

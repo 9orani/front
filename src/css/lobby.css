@@ -1,0 +1,70 @@
+@import "color.css"; 
+@import "font.css"; 
+
+.status-header{
+    background-color: var(--mild-pink); 
+    display: flex; 
+    flex-direction:column;
+    flex-wrap: wrap;
+    justify-content: flex-end; 
+    align-items: flex-end; 
+    align-content: flex-end;
+}
+
+.nav-menu{
+    width: 30%;
+}
+
+.double-main{
+    flex-grow:5;
+}
+
+.lobby-panel-inside{
+    /* position: relative;  */
+    top : 0%; 
+    right:0%; 
+    left: 0%; 
+    align-items: center;
+    width: 200%;
+    height: 100%;
+    margin: 0;
+    padding: 0; 
+    flex: 1 0 100%; 
+}
+
+.lobby-panel-input{
+    font-family: 'Patua One'; 
+    width: 80%; 
+    height: 20%; 
+    font-size: 20px;
+    color : var(--black);
+    text-align: center;
+    border-radius: 25px;
+    background-color: var(--mild-pink);
+    border : 1px solid; 
+    border-color: var(--gray);
+}
+
+.lobby-panel-button{
+    font-family: 'Patua One'; 
+    width: 80%; 
+    height: 20%; 
+    font-size: 20px;
+    color : var(--black);
+    text-align: center;
+    border-radius: 25px;
+    background-color: var(--thick-yellow);
+    border : 1px solid; 
+    border-color: var(--gray);
+}
+
+@keyframes blink-effect {
+    50% {
+      opacity: 0;
+    }
+  }
+  
+.blinking {
+    animation: blink-effect 2s step-end infinite;
+    color: red;
+}

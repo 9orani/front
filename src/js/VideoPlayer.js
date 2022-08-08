@@ -222,8 +222,8 @@ export class VideoPlayer {
 
     async _onOpenMultiplayChannel() {
         await new Promise((resolve) => setTimeout(resolve, 100));
-        const num = Math.floor(Math.random() * 100000);
-        this._changeLabel(String(num));
+        const username = localStorage.getItem("username");
+        this._changeLabel(username); 
     }
 
     async stop() {

@@ -1,0 +1,49 @@
+@import "color.css"; 
+@import "font.css"; 
+
+.container {
+    padding :0; 
+    margin : 0; 
+    height : 100%;
+    width : 100%; 
+    display : flex;
+    flex-direction: column;
+}
+
+.basic-header{
+    height: 50px;
+    background-color: white; 
+}
+
+.basic-content{
+    flex: auto; 
+    display: flex;
+    flex-wrap: wrap; 
+    flex-direction: row;
+    justify-content: space-around;
+    background-color: white;
+    position: relative;
+}
+
+.basic-bar{
+    flex-grow: 1;
+}
+
+.basic-main{
+    position: relative; 
+    display: flex;
+    background-color: white;
+    flex-grow: 3;
+    align-items: center;
+    align-content: center;
+    justify-content: center;
+}
+
+.basic-footer{
+    height : 40px;
+    background-color: white;
+    text-align: center;
+    font-family: 'Fredericka the Great';
+    font-size: 100%;
+    color : var(--mild-black); 
+}

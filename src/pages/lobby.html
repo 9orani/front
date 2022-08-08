@@ -1,0 +1,147 @@
+<html>
+    <head>
+        <title>Gorani - Lobby</title>
+        <link rel="stylesheet" href="../css/layout.css" />
+        <link rel="stylesheet" href="../css/main-panel.css" />
+        <link rel="stylesheet" href="../css/lobby.css" />
+        <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    </head>
+    <body>
+        <div class = "container">
+            <div class = "status-header basic-header">
+                <div class="nav-menu"><p class = "text2" id = "username"></p></div>
+                <div class="nav-menu"><p class ="text2" onclick="logout();">LOGOUT</p></div>
+            </div>
+            <div class = "basic-content">
+                <div class = "basic-bar"></div>
+                <div class = "double-main basic-main">
+                    <div id="center-panel">
+                        <div id = "lobby-panel-inside panel-inside">
+                            <p id = "text1">CREATE ROOM</p>
+                            <table id = "max">
+                                <tr>
+                                    <td><p class = "text2"> ROOM NAME</p></td>
+                                    <td><input class="lobby-panel-input" type="text" id="roomname" name="roomname" placeholder="Enter Roomname" required></td>
+                                </tr>
+                                <tr>
+                                    <td><p class = "text2"> MAX CAPACITY</p></td>
+                                    <td><input class="lobby-panel-input" type="number" id="capacity" name="capacity" placeholder=30 required></td>
+                                </tr>
+                                <tr>
+                                    <td colspan = 2><button class="lobby-panel-button" onclick="createRoom();">create</button> </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class = "basic-bar"></div>
+                <div class = "double-main basic-main">
+                    <div id="center-panel">
+                        <div id = "lobby-panel-inside panel-inside">
+                            <p id = "text1">ENTER ROOM</p>
+                            <table id = "max">
+                                <tr>
+                                    <td><p class = "text2"> ENTER CODE</p></td>
+                                    <td><input class="lobby-panel-input" type="text" id="entercode" name="entercode" placeholder="entercode" required></td>
+                                </tr>
+                                <tr>
+                                    <td colspan="2"><p id="enternote" class="blinking text2"></p></td>
+                                </tr>
+                                <tr>
+                                    <td colspan = 2><button class="lobby-panel-button" onclick="enterRoom();">enter</button> </td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                <div class = "basic-bar"></div>
+            </div>
+            <div class = "basic-footer">
+                @gorani
+            </div>
+        </div>
+    </body>
+    <script>
+        const setUsername = () => {
+            const username = localStorage.getItem("username");
+            console.log(username);
+            document.getElementById('username').innerText = (username ? `Hello, ${username}` : 'Hello, anonymous');
+            console.log(document.getElementById('username').value);
+        }
+        setUsername();
+
+        const logout = () => {
+            localStorage.removeItem("jwt");
+            localStorage.removeItem("username");
+            window.location.href='./login';
+        }
+        const URL = 'http://localhost:8080';
+        const createRoom = async () => {
+            try {
+                const jwt = localStorage.getItem("jwt");
+                if (jwt == null) {
+                    window.location.href='./login';
+                }
+                const roomname = document.getElementById('roomname').value;
+                const capacity = document.getElementById('capacity').value;
+                const response = await axios
+                    .post(URL + '/v1/rooms', {
+                        name: roomname,
+                        maxPlayer: capacity,
+                    }, {
+                        headers: { Authorization: jwt }
+                    })
+                    .then(function (response) {
+                        const new_roomcode = response?.data?.data?.visitCode; 
+                        document.getElementById('roomname').value = ''
+                        document.getElementById('capacity').value = ''
+                        document.getElementById('entercode').value = new_roomcode; 
+                        document.getElementById('enternote').innerHTML 
+                            = roomname + " room has been created.<br> \
+                            click below enter button to enter the room"; 
+                    })
+                    .catch(function (error) {
+                        alert("Wrong roomname or capacity");
+                    });
+                console.log(response);
+            } catch (error) {
+                alert(error + " occurred. please retry.");
+            }
+        };
+
+        const enterRoom = async () => {
+            try{
+                const jwt = localStorage.getItem("jwt");
+                if (jwt == null) {
+                    window.location.href='./login';
+                }
+                const entercode = document.getElementById('entercode').value; 
+                document.getElementById('enternote').innterHTML = ''; 
+
+                const response = await axios 
+                    .post(URL + '/v1/enterroom', {
+                        visitCode : entercode, 
+                    }, {
+                        headers : {Authorization: jwt}
+                    })
+                    .then(function(response){
+                        const success = response?.data?.success; 
+                        const msg = response?.data?.msg; 
+                        const classURL = response?.data?.classURL; 
+                        if(response == true){
+                            window.location.href = classURL; 
+                        }
+                        else{
+                            document.getElementById('enternote').innerHTML 
+                               = "fail to enter the room. <br>" + msg; 
+                        }
+                    })
+                    .catch(function(error) {
+                        alert("Wrong enter code");
+                    }); 
+            } catch (error) {
+                alert(error + " occured. please retry."); 
+            }
+        }; 
+    </script>
+</html>
