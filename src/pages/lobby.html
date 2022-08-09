@@ -75,7 +75,7 @@
             localStorage.removeItem("username");
             window.location.href='./login';
         }
-        const URL = 'http://localhost:8080';
+        const URL = "http://49.50.175.32:8080"; 
         const createRoom = async () => {
             try {
                 const jwt = localStorage.getItem("jwt");
@@ -92,13 +92,19 @@
                         headers: { Authorization: jwt }
                     })
                     .then(function (response) {
-                        const new_roomcode = response?.data?.data?.visitCode; 
-                        document.getElementById('roomname').value = ''
-                        document.getElementById('capacity').value = ''
-                        document.getElementById('entercode').value = new_roomcode; 
-                        document.getElementById('enternote').innerHTML 
-                            = roomname + " room has been created.<br> \
-                            click below enter button to enter the room"; 
+                        const success = response?.data?.success; 
+                        if(success){
+                            const new_roomcode = response?.data?.data?.visitCode; 
+                            document.getElementById('roomname').value = ''
+                            document.getElementById('capacity').value = ''
+                            document.getElementById('entercode').value = new_roomcode; 
+                            document.getElementById('enternote').innerHTML 
+                                = roomname + " room has been created.<br> \
+                                click below enter button to enter the room"; 
+                        }
+                        else{
+                            alert("room list is full");
+                        }
                     })
                     .catch(function (error) {
                         alert("Wrong roomname or capacity");
@@ -119,22 +125,29 @@
                 document.getElementById('enternote').innterHTML = ''; 
 
                 const response = await axios 
-                    .post(URL + '/v1/enterroom', {
-                        visitCode : entercode, 
-                    }, {
+                    .get(URL + '/v1/rooms/' + entercode, {
                         headers : {Authorization: jwt}
                     })
                     .then(function(response){
                         const success = response?.data?.success; 
-                        const msg = response?.data?.msg; 
-                        const classURL = response?.data?.classURL; 
-                        if(response == true){
-                            window.location.href = classURL; 
+                        const code = response?.data?.code; 
+                        const msg = response?.data?.msg;
+                        const classURL = response?.data?.data; 
+                        if(success == true){
+                            window.location.href = "./multiplay"; 
+                            localStorage.setItem("roomURL", classURL);
                         }
                         else{
-                            document.getElementById('enternote').innerHTML 
+                            if(code == -2001){
+                                document.getElementById('enternote').innerHTML 
+                               = "room is already full. <br> fail to enter"; 
+                            }
+                            else{
+                                document.getElementById('enternote').innerHTML 
                                = "fail to enter the room. <br>" + msg; 
+                            }
                         }
+
                     })
                     .catch(function(error) {
                         alert("Wrong enter code");

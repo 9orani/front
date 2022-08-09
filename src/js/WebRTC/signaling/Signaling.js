@@ -6,10 +6,14 @@ export class WebSocketSignaling extends EventTarget {
             new Promise((resolve) => setTimeout(resolve, msec));
 
         let websocketUrl;
+        let httplen = "http://".length; 
+        let httpslen = "https://".length; 
+        let roomURL = localStorage.getItem("roomURL"); 
         if (location.protocol === 'https:') {
-            websocketUrl = `wss://${location.host}`;
+            websocketUrl = "wss://" + roomURL.substring(httpslen); 
         } else {
-            websocketUrl = `ws://${location.host}`;
+            console.log(roomURL); 
+            websocketUrl = "ws://" + roomURL.substring(httplen); 
         }
 
         this.websocket = new WebSocket(websocketUrl);
